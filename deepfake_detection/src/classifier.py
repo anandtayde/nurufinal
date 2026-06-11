@@ -375,7 +375,7 @@ class DeepfakeClassifier:
             "n_samples": len(y),
         }
 
-        print(f"\n✅ Training complete:")
+        print(f"\nTraining complete:")
         print(f"   Train accuracy : {train_acc:.4f}")
         print(f"   CV accuracy    : {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
         print(f"   CV F1          : {f1_scores.mean():.4f} ± {f1_scores.std():.4f}")
@@ -457,34 +457,34 @@ class DeepfakeClassifier:
         if not importance:
             print("Feature importance not available.")
             return
-        print(f"\n🏆 Top {n} Most Important Features:")
+        print(f"\nTop {n} Most Important Features:")
         for i, (name, score) in enumerate(list(importance.items())[:n], 1):
             # Categorize feature group
             if name.startswith("left_") or name.startswith("right_") or name.startswith("avg_"):
-                group = "👁  Blink"
+                group = "Blink"
             elif "temporal_" in name:
-                group = "⏱ Temporal"
+                group = "Temporal"
             elif "dyn_" in name:
                 if "sharpness" in name or "edge" in name or "freq" in name:
-                    group = "🔍 Edge/Artifact"
+                    group = "Edge/Artifact"
                 elif "symmetry" in name:
-                    group = "⚖  Symmetry"
+                    group = "Symmetry"
                 elif "texture" in name or "lbp" in name or "noise" in name:
-                    group = "🎨 Texture"
+                    group = "Texture"
                 elif "yaw" in name or "pitch" in name or "roll" in name:
-                    group = "🧭 Pose"
+                    group = "Pose"
                 elif "mouth" in name or "lip" in name:
-                    group = "💬 Mouth"
+                    group = "Mouth"
                 elif "flow" in name:
-                    group = "🌊 OptFlow"
+                    group = "OptFlow"
                 elif "color" in name or "hue" in name or "skin" in name:
-                    group = "🎨 Color"
+                    group = "Color"
                 elif "motion" in name:
-                    group = "🏃 Motion"
+                    group = "Motion"
                 else:
-                    group = "📊 Dynamics"
+                    group = "Dynamics"
             else:
-                group = "📹 Video"
+                group = "Video"
             print(f"  {i:2d}. [{group}] {name}: {score:.4f}")
 
     # ─────────────────────────────────────────────────────────────
@@ -505,7 +505,7 @@ class DeepfakeClassifier:
         }
         with open(path, "wb") as f:
             pickle.dump(state, f)
-        print(f"✅ Model saved to: {path}")
+        print(f"Model saved to: {path}")
 
     def load_model(self, path: str):
         """Load model + preprocessing pipeline."""
@@ -520,5 +520,5 @@ class DeepfakeClassifier:
         self.feature_selector = state.get("feature_selector")
         self.model_type = state.get("model_type", "unknown")
         self.is_trained = state.get("is_trained", True)
-        print(f"✅ Model loaded from: {path}")
+        print(f"Model loaded from: {path}")
         print(f"   Type: {self.model_type} | Features: {len(self.feature_names)}")

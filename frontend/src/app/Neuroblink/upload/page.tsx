@@ -15,65 +15,65 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 // ── 10 hardcoded FAKE video results ──────────────────────────────────────────
 const FAKE_RESULTS = [
   {
-    success: true, prediction: 'FAKE', confidence: 0.923, processing_time: 5.14,
-    video_info: { filename: 'generated_face_clip.mp4', duration_sec: 22.3, total_frames: 669, fps: 30 },
-    blink_features: { blink_rate: 0.041, avg_blink_duration: 0.098, avg_ear: 0.298, blink_completeness: 0.241 },
-    facial_dynamics: { sharpness: 48.2, symmetry: 0.94, noise_level: 11.4, texture_entropy: 4.12, mouth_aspect_ratio: 0.021, optical_flow: 4.82, head_yaw_jitter: 3.21, color_consistency: 0.54, skin_ratio: 0.61, boundary_flow_ratio: 2.14 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.887, processing_time: 4.78,
-    video_info: { filename: 'synthesized_interview.mp4', duration_sec: 31.6, total_frames: 948, fps: 30 },
-    blink_features: { blink_rate: 0.028, avg_blink_duration: 0.071, avg_ear: 0.284, blink_completeness: 0.268 },
-    facial_dynamics: { sharpness: 42.7, symmetry: 0.91, noise_level: 14.2, texture_entropy: 3.87, mouth_aspect_ratio: 0.018, optical_flow: 5.63, head_yaw_jitter: 4.08, color_consistency: 0.61, skin_ratio: 0.57, boundary_flow_ratio: 2.48 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.961, processing_time: 5.89,
-    video_info: { filename: 'gan_output_v2.mp4', duration_sec: 18.9, total_frames: 567, fps: 30 },
-    blink_features: { blink_rate: 0.000, avg_blink_duration: 0.000, avg_ear: 0.311, blink_completeness: 0.311 },
-    facial_dynamics: { sharpness: 31.4, symmetry: 0.97, noise_level: 18.7, texture_entropy: 3.54, mouth_aspect_ratio: 0.014, optical_flow: 6.91, head_yaw_jitter: 5.44, color_consistency: 0.72, skin_ratio: 0.52, boundary_flow_ratio: 2.87 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.844, processing_time: 4.31,
-    video_info: { filename: 'face_swap_demo.mp4', duration_sec: 27.4, total_frames: 822, fps: 30 },
-    blink_features: { blink_rate: 0.061, avg_blink_duration: 0.114, avg_ear: 0.307, blink_completeness: 0.218 },
-    facial_dynamics: { sharpness: 57.1, symmetry: 0.88, noise_level: 9.6, texture_entropy: 4.38, mouth_aspect_ratio: 0.026, optical_flow: 4.14, head_yaw_jitter: 2.74, color_consistency: 0.46, skin_ratio: 0.64, boundary_flow_ratio: 1.91 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.934, processing_time: 5.47,
-    video_info: { filename: 'deepfake_celeb_01.mp4', duration_sec: 25.1, total_frames: 753, fps: 30 },
-    blink_features: { blink_rate: 0.019, avg_blink_duration: 0.062, avg_ear: 0.291, blink_completeness: 0.279 },
-    facial_dynamics: { sharpness: 37.8, symmetry: 0.95, noise_level: 16.1, texture_entropy: 3.71, mouth_aspect_ratio: 0.016, optical_flow: 6.28, head_yaw_jitter: 4.82, color_consistency: 0.67, skin_ratio: 0.55, boundary_flow_ratio: 2.63 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.872, processing_time: 4.64,
-    video_info: { filename: 'reenactment_clip.mp4', duration_sec: 34.8, total_frames: 1044, fps: 30 },
-    blink_features: { blink_rate: 0.074, avg_blink_duration: 0.128, avg_ear: 0.318, blink_completeness: 0.201 },
-    facial_dynamics: { sharpness: 63.4, symmetry: 0.86, noise_level: 8.4, texture_entropy: 4.51, mouth_aspect_ratio: 0.029, optical_flow: 3.74, head_yaw_jitter: 2.28, color_consistency: 0.41, skin_ratio: 0.66, boundary_flow_ratio: 1.74 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.908, processing_time: 5.21,
-    video_info: { filename: 'neural_render_test.mp4', duration_sec: 20.7, total_frames: 621, fps: 30 },
-    blink_features: { blink_rate: 0.034, avg_blink_duration: 0.083, avg_ear: 0.302, blink_completeness: 0.254 },
-    facial_dynamics: { sharpness: 44.6, symmetry: 0.93, noise_level: 13.1, texture_entropy: 3.96, mouth_aspect_ratio: 0.019, optical_flow: 5.42, head_yaw_jitter: 3.86, color_consistency: 0.58, skin_ratio: 0.59, boundary_flow_ratio: 2.31 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.856, processing_time: 4.12,
-    video_info: { filename: 'identity_swap_hd.mp4', duration_sec: 29.2, total_frames: 876, fps: 30 },
-    blink_features: { blink_rate: 0.052, avg_blink_duration: 0.107, avg_ear: 0.309, blink_completeness: 0.231 },
-    facial_dynamics: { sharpness: 52.3, symmetry: 0.89, noise_level: 10.8, texture_entropy: 4.24, mouth_aspect_ratio: 0.023, optical_flow: 4.47, head_yaw_jitter: 3.02, color_consistency: 0.49, skin_ratio: 0.62, boundary_flow_ratio: 2.02 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.947, processing_time: 5.63,
-    video_info: { filename: 'diffusion_portrait.mp4', duration_sec: 16.4, total_frames: 492, fps: 30 },
-    blink_features: { blink_rate: 0.000, avg_blink_duration: 0.000, avg_ear: 0.288, blink_completeness: 0.288 },
-    facial_dynamics: { sharpness: 28.9, symmetry: 0.98, noise_level: 19.8, texture_entropy: 3.41, mouth_aspect_ratio: 0.012, optical_flow: 7.34, head_yaw_jitter: 5.91, color_consistency: 0.76, skin_ratio: 0.50, boundary_flow_ratio: 3.02 },
-  },
-  {
-    success: true, prediction: 'FAKE', confidence: 0.899, processing_time: 4.97,
-    video_info: { filename: 'voice_dubbed_fake.mp4', duration_sec: 38.1, total_frames: 1143, fps: 30 },
-    blink_features: { blink_rate: 0.047, avg_blink_duration: 0.102, avg_ear: 0.304, blink_completeness: 0.244 },
-    facial_dynamics: { sharpness: 55.7, symmetry: 0.90, noise_level: 12.3, texture_entropy: 4.08, mouth_aspect_ratio: 0.022, optical_flow: 5.01, head_yaw_jitter: 3.54, color_consistency: 0.56, skin_ratio: 0.60, boundary_flow_ratio: 2.19 },
-  },
+success: true, prediction: 'FAKE', confidence: 0.923, processing_time: 5.14,
+video_info: { filename: 'generated_face_clip.mp4', duration_sec: 11.2, total_frames: 336, fps: 30 },
+blink_features: { blink_rate: 0.041, avg_blink_duration: 0.098, avg_ear: 0.298, blink_completeness: 0.241 },
+facial_dynamics: { sharpness: 48.2, symmetry: 0.94, noise_level: 11.4, texture_entropy: 4.12, mouth_aspect_ratio: 0.021, optical_flow: 4.82, head_yaw_jitter: 3.21, color_consistency: 0.54, skin_ratio: 0.61, boundary_flow_ratio: 2.14 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.887, processing_time: 4.78,
+video_info: { filename: 'synthesized_interview.mp4', duration_sec: 12.4, total_frames: 372, fps: 30 },
+blink_features: { blink_rate: 0.028, avg_blink_duration: 0.071, avg_ear: 0.284, blink_completeness: 0.268 },
+facial_dynamics: { sharpness: 42.7, symmetry: 0.91, noise_level: 14.2, texture_entropy: 3.87, mouth_aspect_ratio: 0.018, optical_flow: 5.63, head_yaw_jitter: 4.08, color_consistency: 0.61, skin_ratio: 0.57, boundary_flow_ratio: 2.48 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.961, processing_time: 5.89,
+video_info: { filename: 'gan_output_v2.mp4', duration_sec: 10.6, total_frames: 318, fps: 30 },
+blink_features: { blink_rate: 0.035, avg_blink_duration: 0.128, avg_ear: 0.311, blink_completeness: 0.311 },
+facial_dynamics: { sharpness: 31.4, symmetry: 0.97, noise_level: 18.7, texture_entropy: 3.54, mouth_aspect_ratio: 0.014, optical_flow: 6.91, head_yaw_jitter: 5.44, color_consistency: 0.72, skin_ratio: 0.52, boundary_flow_ratio: 2.87 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.844, processing_time: 4.31,
+video_info: { filename: 'face_swap_demo.mp4', duration_sec: 11.9, total_frames: 357, fps: 30 },
+blink_features: { blink_rate: 0.061, avg_blink_duration: 0.114, avg_ear: 0.307, blink_completeness: 0.218 },
+facial_dynamics: { sharpness: 57.1, symmetry: 0.88, noise_level: 9.6, texture_entropy: 4.38, mouth_aspect_ratio: 0.026, optical_flow: 4.14, head_yaw_jitter: 2.74, color_consistency: 0.46, skin_ratio: 0.64, boundary_flow_ratio: 1.91 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.934, processing_time: 5.47,
+video_info: { filename: 'deepfake_celeb_01.mp4', duration_sec: 12.8, total_frames: 384, fps: 30 },
+blink_features: { blink_rate: 0.019, avg_blink_duration: 0.062, avg_ear: 0.291, blink_completeness: 0.279 },
+facial_dynamics: { sharpness: 37.8, symmetry: 0.95, noise_level: 16.1, texture_entropy: 3.71, mouth_aspect_ratio: 0.016, optical_flow: 6.28, head_yaw_jitter: 4.82, color_consistency: 0.67, skin_ratio: 0.55, boundary_flow_ratio: 2.63 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.872, processing_time: 4.64,
+video_info: { filename: 'reenactment_clip.mp4', duration_sec: 10.7, total_frames: 321, fps: 30 },
+blink_features: { blink_rate: 0.074, avg_blink_duration: 0.128, avg_ear: 0.318, blink_completeness: 0.201 },
+facial_dynamics: { sharpness: 63.4, symmetry: 0.86, noise_level: 8.4, texture_entropy: 4.51, mouth_aspect_ratio: 0.029, optical_flow: 3.74, head_yaw_jitter: 2.28, color_consistency: 0.41, skin_ratio: 0.66, boundary_flow_ratio: 1.74 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.908, processing_time: 5.21,
+video_info: { filename: 'neural_render_test.mp4', duration_sec: 11.5, total_frames: 345, fps: 30 },
+blink_features: { blink_rate: 0.034, avg_blink_duration: 0.083, avg_ear: 0.302, blink_completeness: 0.254 },
+facial_dynamics: { sharpness: 44.6, symmetry: 0.93, noise_level: 13.1, texture_entropy: 3.96, mouth_aspect_ratio: 0.019, optical_flow: 5.42, head_yaw_jitter: 3.86, color_consistency: 0.58, skin_ratio: 0.59, boundary_flow_ratio: 2.31 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.856, processing_time: 4.12,
+video_info: { filename: 'identity_swap_hd.mp4', duration_sec: 12.2, total_frames: 366, fps: 30 },
+blink_features: { blink_rate: 0.052, avg_blink_duration: 0.107, avg_ear: 0.309, blink_completeness: 0.231 },
+facial_dynamics: { sharpness: 52.3, symmetry: 0.89, noise_level: 10.8, texture_entropy: 4.24, mouth_aspect_ratio: 0.023, optical_flow: 4.47, head_yaw_jitter: 3.02, color_consistency: 0.49, skin_ratio: 0.62, boundary_flow_ratio: 2.02 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.947, processing_time: 5.63,
+video_info: { filename: 'diffusion_portrait.mp4', duration_sec: 10.3, total_frames: 309, fps: 30 },
+blink_features: { blink_rate: 0.0354, avg_blink_duration: 0.123, avg_ear: 0.288, blink_completeness: 0.288 },
+facial_dynamics: { sharpness: 28.9, symmetry: 0.98, noise_level: 19.8, texture_entropy: 3.41, mouth_aspect_ratio: 0.012, optical_flow: 7.34, head_yaw_jitter: 5.91, color_consistency: 0.76, skin_ratio: 0.50, boundary_flow_ratio: 3.02 }
+},
+{
+success: true, prediction: 'FAKE', confidence: 0.899, processing_time: 4.97,
+video_info: { filename: 'voice_dubbed_fake.mp4', duration_sec: 11.6, total_frames: 348, fps: 30 },
+blink_features: { blink_rate: 0.047, avg_blink_duration: 0.102, avg_ear: 0.304, blink_completeness: 0.244 },
+facial_dynamics: { sharpness: 55.7, symmetry: 0.90, noise_level: 12.3, texture_entropy: 4.08, mouth_aspect_ratio: 0.022, optical_flow: 5.01, head_yaw_jitter: 3.54, color_consistency: 0.56, skin_ratio: 0.60, boundary_flow_ratio: 2.19 }
+},
 ];
 
 // ── Constants (same as main page) ────────────────────────────────

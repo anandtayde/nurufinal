@@ -45,7 +45,7 @@
 #             print("❌ Model file not found: models/classifier.pkl")
             
 #     except ImportError as e:
-#         print(f"❌ Import error: {e}")
+#         print(f"Import error: {e}")
 #         print("Make sure your ML files are in the src/ folder with correct imports")
 #     except Exception as e:
 #         print(f"❌ Error loading model: {e}")
@@ -239,11 +239,11 @@ Fixes vs original api.py:
 #             print("   Train first → python train.py --mode train --real-dir <path> --fake-dir <path>")
 
 #     except ImportError as e:
-#         print(f"❌ Import error: {e}")
+#         print(f"Import error: {e}")
 #         print("   Ensure src/ contains: feature_extractor.py, classifier.py, facial_dynamics_analyzer.py")
 #     except Exception as e:
 #         import traceback
-#         print(f"❌ Startup error: {e}")
+#         print(f"Startup error: {e}")
 #         traceback.print_exc()
 
 #     yield
@@ -407,6 +407,8 @@ from contextlib import asynccontextmanager
 from typing import Optional, Dict
 
 # ── Third-party ───────────────────────────────────────────────────────────────
+import cv2
+import numpy as np
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -429,12 +431,17 @@ model_loaded      = False
 async def lifespan(app: FastAPI):
     global classifier, feature_extractor, model_loaded
     try:
-        print("🔧 Loading ML components...")
+        print("--- Loading ML components ---")
         from feature_extractor import FeatureExtractor
         from classifier import DeepfakeClassifier
 
+        print("Initializing FeatureExtractor...")
         feature_extractor = FeatureExtractor()
+        print("FeatureExtractor initialized successfully")
+        
+        print("Initializing DeepfakeClassifier...")
         classifier        = DeepfakeClassifier()
+        print("DeepfakeClassifier initialized successfully")
 
         # Resolve model path relative to project root so it works from any CWD
         model_file = os.environ.get(
@@ -444,17 +451,17 @@ async def lifespan(app: FastAPI):
         if os.path.exists(model_file):
             classifier.load_model(model_file)
             model_loaded = True
-            print(f"✅ Model loaded: {model_file}")
+            print(f"Model loaded: {model_file}")
         else:
-            print(f"⚠  Model not found: {model_file}")
-            print("   Train first → python train.py --mode train --real-dir <path> --fake-dir <path>")
+            print(f"Warning: Model not found: {model_file}")
+            print("   Train first -> python train.py --mode train --real-dir <path> --fake-dir <path>")
 
     except ImportError as e:
-        print(f"❌ Import error: {e}")
+        print(f"Import error: {e}")
         print("   Ensure src/ contains: feature_extractor.py, classifier.py, facial_dynamics_analyzer.py")
     except Exception as e:
         import traceback
-        print(f"❌ Startup error: {e}")
+        print(f"Startup error: {e}")
         traceback.print_exc()
 
     yield
@@ -583,15 +590,67 @@ async def predict_video(file: UploadFile = File(...)):
         shutil.rmtree(temp_dir, ignore_errors=True)
 
 
+@app.post("/analyze_frame")
+async def analyze_frame(frame: UploadFile = File(...)):
+    """
+    Handle single frame analysis for live frontend.
+    """
+    try:
+        # Read image
+        content = await frame.read()
+        nparr = np.frombuffer(content, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+        if img is None:
+            return {"success": False, "error": "Invalid image data"}
+
+        if feature_extractor is None:
+             return {"success": False, "error": "ML components not loaded"}
+
+        # Detect face for analysis
+        faces = feature_extractor.face_detector.detect_faces(img)
+        largest_face = feature_extractor.face_detector.get_largest_face(faces)
+
+        if largest_face is None:
+            return {"success": False, "error": "No face detected"}
+
+        x, y, w, h = [int(v) for v in largest_face]
+        # Analyze frame
+        dyn = feature_extractor.facial_dynamics.analyze_frame(
+            img,
+            face_bbox=(x, y, w, h)
+        )
+
+        if not dyn:
+            return {"success": False, "error": "Analysis failed"}
+
+        return {
+            "success": True,
+            "sharpness": float(dyn.get("sharpness_score", 0)),
+            "symmetry": float(dyn.get("avg_symmetry_score", 0)),
+            "lbp_entropy": float(dyn.get("lbp_entropy", 0)),
+            "noise_level": float(dyn.get("noise_level", 0)),
+            "skin_ratio": float(dyn.get("skin_ratio", 0)),
+            "flow_mean": float(dyn.get("flow_mean", 0)),
+            "boundary_flow_ratio": float(dyn.get("boundary_flow_ratio", 0)),
+            "verdict": None 
+        }
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return {"success": False, "error": str(e)}
+
+
 # ── Dev entry point ───────────────────────────────────────────────────────────
 if __name__ == "__main__":
     import uvicorn
-    print("🚀 Deepfake Detection API  →  http://localhost:8000")
-    print("📖 Interactive docs        →  http://localhost:8000/docs")
+    print("Deepfake Detection API  ->  http://localhost:8000")
+    print("Interactive docs         ->  http://localhost:8000/docs")
     uvicorn.run(
         "server:app",
         host       = "0.0.0.0",
         port       = 8000,
-        reload     = True,
+        reload     = False,
         reload_dirs= [BASE_DIR],
     )

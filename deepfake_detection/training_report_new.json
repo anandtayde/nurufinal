@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-06-11 20:24:47",
+  "total_samples": 1993,
+  "real_samples": 994,
+  "fake_samples": 999,
+  "results": {
+    "accuracy": 0.9979929754139488,
+    "cv_mean": 0.90616365033186,
+    "cv_std": 0.007805468682292634,
+    "cv_f1_mean": 0.9106904725634859,
+    "cv_f1_std": 0.00783697247593801,
+    "n_features": 97,
+    "n_samples": 1993
+  },
+  "training_duration_sec": 11.393718957901001
+}

@@ -289,7 +289,7 @@ class FeatureExtractor:
 
         # ── No face ───────────────────────────────────────────────
         if not left_ear_sequence:
-            print(f"  ⚠  No face detected: {os.path.basename(video_path)}")
+            print(f"  Warning: No face detected: {os.path.basename(video_path)}")
             return self._get_default_features()
 
         # ── EAR sanity check (printed so you can verify the fix) ──
@@ -327,7 +327,7 @@ class FeatureExtractor:
             combined.update({f"temporal_{k}": v for k, v in temporal.items()})
             print(f"    dynamics_frames={len(per_frame_dynamics)}")
         else:
-            print(f"    ⚠  No facial dynamics frames collected")
+            print(f"    Warning: No facial dynamics frames collected")
 
         return combined
 

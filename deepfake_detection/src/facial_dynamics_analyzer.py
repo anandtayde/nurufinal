@@ -579,26 +579,55 @@ import numpy as np
 from typing import Dict, List, Optional, Tuple
 from scipy import stats
 from scipy.signal import find_peaks
-import mediapipe as mp
+
+try:
+    import mediapipe as mp
+    import mediapipe.python.solutions.face_mesh as mp_face_mesh
+    import mediapipe.python.solutions.face_detection as mp_face_detection
+    MEDIAPIPE_AVAILABLE = True
+except (ImportError, AttributeError):
+    MEDIAPIPE_AVAILABLE = False
+    print("Warning: MediaPipe solutions not found in FacialDynamicsAnalyzer. Fallback active.")
+
+class MockFaceMesh:
+    def __init__(self, **kwargs): pass
+    def process(self, image):
+        class MockResult:
+            def __init__(self): self.multi_face_landmarks = None
+        return MockResult()
+    def close(self): pass
+
+class MockFaceDetection:
+    def __init__(self, **kwargs): pass
+    def process(self, image):
+        class MockResult:
+            def __init__(self): self.detections = None
+        return MockResult()
+    def close(self): pass
 
 
 class FacialDynamicsAnalyzer:
     def __init__(self):
-        """Initialize facial dynamics analyzer with MediaPipe components"""
-        # Face mesh for landmark-based analysis
-        self.mp_face_mesh = mp.solutions.face_mesh
-        self.face_mesh = self.mp_face_mesh.FaceMesh(
-            max_num_faces=1,
-            refine_landmarks=True,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5
-        )
+        """Initialize facial dynamics analyzer with MediaPipe components or fallbacks"""
+        if MEDIAPIPE_AVAILABLE:
+            # Face mesh for landmark-based analysis
+            self.mp_face_mesh = mp_face_mesh
+            self.face_mesh = self.mp_face_mesh.FaceMesh(
+                max_num_faces=1,
+                refine_landmarks=True,
+                min_detection_confidence=0.5,
+                min_tracking_confidence=0.5
+            )
 
-        # MediaPipe face detection for quality checks
-        self.mp_face_detection = mp.solutions.face_detection
-        self.face_detection = self.mp_face_detection.FaceDetection(
-            model_selection=1, min_detection_confidence=0.5
-        )
+            # MediaPipe face detection for quality checks
+            self.mp_face_detection = mp_face_detection
+            self.face_detection = self.mp_face_detection.FaceDetection(
+                model_selection=1,
+                min_detection_confidence=0.5
+            )
+        else:
+            self.face_mesh = MockFaceMesh()
+            self.face_detection = MockFaceDetection()
 
         # Key landmark groups for facial analysis
         # Lips

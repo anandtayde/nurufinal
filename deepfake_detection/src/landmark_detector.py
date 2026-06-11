@@ -78,21 +78,41 @@
 
 
 import cv2
-import mediapipe as mp
 import numpy as np
 from typing import List, Optional, Tuple
 
+try:
+    import mediapipe as mp
+    import mediapipe.python.solutions.face_mesh as mp_face_mesh
+    MEDIAPIPE_AVAILABLE = True
+except (ImportError, AttributeError):
+    MEDIAPIPE_AVAILABLE = False
+    print("Warning: MediaPipe solutions not found. LandmarkDetector will use fallback.")
+
+class MockFaceMesh:
+    def __init__(self, **kwargs):
+        pass
+    def process(self, image):
+        class MockResult:
+            def __init__(self):
+                self.multi_face_landmarks = None
+        return MockResult()
+    def close(self):
+        pass
 
 class LandmarkDetector:
     def __init__(self):
-        """Initialize MediaPipe face mesh detector."""
-        self.mp_face_mesh = mp.solutions.face_mesh
-        self.face_mesh = self.mp_face_mesh.FaceMesh(
-            max_num_faces=1,
-            refine_landmarks=True,
-            min_detection_confidence=0.5,
-            min_tracking_confidence=0.5
-        )
+        """Initialize MediaPipe face mesh detector or fallback."""
+        if MEDIAPIPE_AVAILABLE:
+            self.mp_face_mesh = mp_face_mesh
+            self.face_mesh = self.mp_face_mesh.FaceMesh(
+                max_num_faces=1,
+                refine_landmarks=True,
+                min_detection_confidence=0.5,
+                min_tracking_confidence=0.5
+            )
+        else:
+            self.face_mesh = MockFaceMesh()
 
         # 16-point eye index sets (for general eye region features)
         self.LEFT_EYE_INDICES  = [33,  7,  163, 144, 145, 153, 154, 155,

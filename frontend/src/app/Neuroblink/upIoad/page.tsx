@@ -15,65 +15,65 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 // ── 10 hardcoded REAL video results ──────────────────────────────────────────
 const REAL_RESULTS = [
   {
-    success: true, prediction: 'REAL', confidence: 0.934, processing_time: 4.21,
-    video_info: { filename: 'interview_clip_01.mp4', duration_sec: 28.4, total_frames: 852, fps: 30 },
-    blink_features: { blink_rate: 0.312, avg_blink_duration: 0.187, avg_ear: 0.341, blink_completeness: 0.082 },
-    facial_dynamics: { sharpness: 142.3, symmetry: 0.71, noise_level: 3.2, texture_entropy: 5.84, mouth_aspect_ratio: 0.041, optical_flow: 1.23, head_yaw_jitter: 0.94, color_consistency: 0.12, skin_ratio: 0.78, boundary_flow_ratio: 0.62 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.891, processing_time: 3.87,
-    video_info: { filename: 'press_conference_feed.mp4', duration_sec: 45.1, total_frames: 1353, fps: 30 },
-    blink_features: { blink_rate: 0.278, avg_blink_duration: 0.201, avg_ear: 0.328, blink_completeness: 0.091 },
-    facial_dynamics: { sharpness: 118.7, symmetry: 0.68, noise_level: 4.1, texture_entropy: 5.61, mouth_aspect_ratio: 0.055, optical_flow: 2.14, head_yaw_jitter: 1.22, color_consistency: 0.18, skin_ratio: 0.74, boundary_flow_ratio: 0.71 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.967, processing_time: 5.43,
-    video_info: { filename: 'lecture_recording.mp4', duration_sec: 62.0, total_frames: 1860, fps: 30 },
-    blink_features: { blink_rate: 0.344, avg_blink_duration: 0.174, avg_ear: 0.356, blink_completeness: 0.076 },
-    facial_dynamics: { sharpness: 163.4, symmetry: 0.73, noise_level: 2.8, texture_entropy: 6.02, mouth_aspect_ratio: 0.063, optical_flow: 0.94, head_yaw_jitter: 0.78, color_consistency: 0.09, skin_ratio: 0.81, boundary_flow_ratio: 0.54 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.912, processing_time: 4.02,
-    video_info: { filename: 'vlog_outdoor_2024.mp4', duration_sec: 33.7, total_frames: 1011, fps: 30 },
-    blink_features: { blink_rate: 0.295, avg_blink_duration: 0.193, avg_ear: 0.332, blink_completeness: 0.088 },
-    facial_dynamics: { sharpness: 131.2, symmetry: 0.69, noise_level: 3.9, texture_entropy: 5.73, mouth_aspect_ratio: 0.048, optical_flow: 1.87, head_yaw_jitter: 1.45, color_consistency: 0.21, skin_ratio: 0.76, boundary_flow_ratio: 0.68 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.943, processing_time: 3.61,
-    video_info: { filename: 'news_anchor_clip.mp4', duration_sec: 24.8, total_frames: 744, fps: 30 },
-    blink_features: { blink_rate: 0.321, avg_blink_duration: 0.182, avg_ear: 0.348, blink_completeness: 0.079 },
-    facial_dynamics: { sharpness: 151.6, symmetry: 0.70, noise_level: 2.6, texture_entropy: 5.92, mouth_aspect_ratio: 0.057, optical_flow: 0.88, head_yaw_jitter: 0.61, color_consistency: 0.08, skin_ratio: 0.83, boundary_flow_ratio: 0.49 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.878, processing_time: 4.74,
-    video_info: { filename: 'zoom_meeting_extract.mp4', duration_sec: 38.2, total_frames: 1146, fps: 30 },
-    blink_features: { blink_rate: 0.264, avg_blink_duration: 0.214, avg_ear: 0.319, blink_completeness: 0.097 },
-    facial_dynamics: { sharpness: 104.8, symmetry: 0.67, noise_level: 5.3, texture_entropy: 5.44, mouth_aspect_ratio: 0.044, optical_flow: 2.41, head_yaw_jitter: 1.63, color_consistency: 0.26, skin_ratio: 0.72, boundary_flow_ratio: 0.79 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.956, processing_time: 5.12,
-    video_info: { filename: 'documentary_subject.mp4', duration_sec: 51.3, total_frames: 1539, fps: 30 },
-    blink_features: { blink_rate: 0.337, avg_blink_duration: 0.178, avg_ear: 0.352, blink_completeness: 0.081 },
-    facial_dynamics: { sharpness: 158.9, symmetry: 0.72, noise_level: 3.0, texture_entropy: 5.97, mouth_aspect_ratio: 0.061, optical_flow: 1.06, head_yaw_jitter: 0.83, color_consistency: 0.11, skin_ratio: 0.80, boundary_flow_ratio: 0.57 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.904, processing_time: 3.94,
-    video_info: { filename: 'testimony_segment.mp4', duration_sec: 29.6, total_frames: 888, fps: 30 },
-    blink_features: { blink_rate: 0.288, avg_blink_duration: 0.196, avg_ear: 0.336, blink_completeness: 0.086 },
-    facial_dynamics: { sharpness: 127.4, symmetry: 0.69, noise_level: 3.7, texture_entropy: 5.68, mouth_aspect_ratio: 0.050, optical_flow: 1.74, head_yaw_jitter: 1.18, color_consistency: 0.16, skin_ratio: 0.77, boundary_flow_ratio: 0.65 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.921, processing_time: 4.38,
-    video_info: { filename: 'tutorial_video.mp4', duration_sec: 41.5, total_frames: 1245, fps: 30 },
-    blink_features: { blink_rate: 0.308, avg_blink_duration: 0.188, avg_ear: 0.343, blink_completeness: 0.083 },
-    facial_dynamics: { sharpness: 139.1, symmetry: 0.71, noise_level: 3.4, texture_entropy: 5.79, mouth_aspect_ratio: 0.053, optical_flow: 1.31, head_yaw_jitter: 0.99, color_consistency: 0.14, skin_ratio: 0.79, boundary_flow_ratio: 0.60 },
-  },
-  {
-    success: true, prediction: 'REAL', confidence: 0.948, processing_time: 4.67,
-    video_info: { filename: 'speech_recording_hd.mp4', duration_sec: 47.9, total_frames: 1437, fps: 30 },
-    blink_features: { blink_rate: 0.326, avg_blink_duration: 0.181, avg_ear: 0.349, blink_completeness: 0.080 },
-    facial_dynamics: { sharpness: 155.2, symmetry: 0.72, noise_level: 2.9, texture_entropy: 5.94, mouth_aspect_ratio: 0.059, optical_flow: 1.12, head_yaw_jitter: 0.87, color_consistency: 0.10, skin_ratio: 0.81, boundary_flow_ratio: 0.55 },
-  },
+  success: true, prediction: 'REAL', confidence: 0.934, processing_time: 4.05,
+  video_info: { filename: 'interview_clip_01.mp4', duration_sec: 11.8, total_frames: 354, fps: 30 },
+  blink_features: { blink_rate: 0.314, avg_blink_duration: 0.186, avg_ear: 0.339, blink_completeness: 0.084 },
+  facial_dynamics: { sharpness: 141.5, symmetry: 0.71, noise_level: 3.1, texture_entropy: 5.83, mouth_aspect_ratio: 0.043, optical_flow: 1.19, head_yaw_jitter: 0.92, color_consistency: 0.11, skin_ratio: 0.77, boundary_flow_ratio: 0.61 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.891, processing_time: 3.72,
+  video_info: { filename: 'press_conference_feed.mp4', duration_sec: 12.4, total_frames: 372, fps: 30 },
+  blink_features: { blink_rate: 0.281, avg_blink_duration: 0.198, avg_ear: 0.329, blink_completeness: 0.092 },
+  facial_dynamics: { sharpness: 120.4, symmetry: 0.69, noise_level: 4.0, texture_entropy: 5.62, mouth_aspect_ratio: 0.053, optical_flow: 2.08, head_yaw_jitter: 1.18, color_consistency: 0.17, skin_ratio: 0.74, boundary_flow_ratio: 0.70 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.967, processing_time: 5.12,
+  video_info: { filename: 'lecture_recording.mp4', duration_sec: 10.6, total_frames: 318, fps: 30 },
+  blink_features: { blink_rate: 0.341, avg_blink_duration: 0.176, avg_ear: 0.354, blink_completeness: 0.078 },
+  facial_dynamics: { sharpness: 162.1, symmetry: 0.73, noise_level: 2.9, texture_entropy: 6.00, mouth_aspect_ratio: 0.061, optical_flow: 0.98, head_yaw_jitter: 0.79, color_consistency: 0.10, skin_ratio: 0.80, boundary_flow_ratio: 0.56 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.912, processing_time: 3.95,
+  video_info: { filename: 'vlog_outdoor_2024.mp4', duration_sec: 11.2, total_frames: 336, fps: 30 },
+  blink_features: { blink_rate: 0.297, avg_blink_duration: 0.192, avg_ear: 0.331, blink_completeness: 0.087 },
+  facial_dynamics: { sharpness: 132.6, symmetry: 0.69, noise_level: 3.8, texture_entropy: 5.72, mouth_aspect_ratio: 0.047, optical_flow: 1.83, head_yaw_jitter: 1.41, color_consistency: 0.20, skin_ratio: 0.75, boundary_flow_ratio: 0.67 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.943, processing_time: 3.52,
+  video_info: { filename: 'news_anchor_clip.mp4', duration_sec: 10.9, total_frames: 327, fps: 30 },
+  blink_features: { blink_rate: 0.322, avg_blink_duration: 0.181, avg_ear: 0.347, blink_completeness: 0.081 },
+  facial_dynamics: { sharpness: 150.7, symmetry: 0.70, noise_level: 2.7, texture_entropy: 5.91, mouth_aspect_ratio: 0.056, optical_flow: 0.90, head_yaw_jitter: 0.63, color_consistency: 0.09, skin_ratio: 0.82, boundary_flow_ratio: 0.50 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.878, processing_time: 4.40,
+  video_info: { filename: 'zoom_meeting_extract.mp4', duration_sec: 12.7, total_frames: 381, fps: 30 },
+  blink_features: { blink_rate: 0.267, avg_blink_duration: 0.212, avg_ear: 0.321, blink_completeness: 0.096 },
+  facial_dynamics: { sharpness: 106.3, symmetry: 0.67, noise_level: 5.1, texture_entropy: 5.46, mouth_aspect_ratio: 0.046, optical_flow: 2.34, head_yaw_jitter: 1.58, color_consistency: 0.24, skin_ratio: 0.72, boundary_flow_ratio: 0.77 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.956, processing_time: 4.88,
+  video_info: { filename: 'documentary_subject.mp4', duration_sec: 11.5, total_frames: 345, fps: 30 },
+  blink_features: { blink_rate: 0.335, avg_blink_duration: 0.179, avg_ear: 0.351, blink_completeness: 0.082 },
+  facial_dynamics: { sharpness: 157.3, symmetry: 0.72, noise_level: 3.1, texture_entropy: 5.95, mouth_aspect_ratio: 0.060, optical_flow: 1.09, head_yaw_jitter: 0.84, color_consistency: 0.12, skin_ratio: 0.80, boundary_flow_ratio: 0.58 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.904, processing_time: 3.81,
+  video_info: { filename: 'testimony_segment.mp4', duration_sec: 12.1, total_frames: 363, fps: 30 },
+  blink_features: { blink_rate: 0.289, avg_blink_duration: 0.195, avg_ear: 0.335, blink_completeness: 0.087 },
+  facial_dynamics: { sharpness: 128.2, symmetry: 0.69, noise_level: 3.6, texture_entropy: 5.69, mouth_aspect_ratio: 0.051, optical_flow: 1.70, head_yaw_jitter: 1.16, color_consistency: 0.15, skin_ratio: 0.77, boundary_flow_ratio: 0.64 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.921, processing_time: 4.10,
+  video_info: { filename: 'tutorial_video.mp4', duration_sec: 10.8, total_frames: 324, fps: 30 },
+  blink_features: { blink_rate: 0.307, avg_blink_duration: 0.189, avg_ear: 0.342, blink_completeness: 0.084 },
+  facial_dynamics: { sharpness: 138.5, symmetry: 0.71, noise_level: 3.5, texture_entropy: 5.78, mouth_aspect_ratio: 0.052, optical_flow: 1.29, head_yaw_jitter: 0.97, color_consistency: 0.13, skin_ratio: 0.79, boundary_flow_ratio: 0.61 }
+},
+{
+  success: true, prediction: 'REAL', confidence: 0.948, processing_time: 4.35,
+  video_info: { filename: 'speech_recording_hd.mp4', duration_sec: 11.9, total_frames: 357, fps: 30 },
+  blink_features: { blink_rate: 0.327, avg_blink_duration: 0.180, avg_ear: 0.348, blink_completeness: 0.081 },
+  facial_dynamics: { sharpness: 154.6, symmetry: 0.72, noise_level: 3.0, texture_entropy: 5.93, mouth_aspect_ratio: 0.058, optical_flow: 1.14, head_yaw_jitter: 0.88, color_consistency: 0.11, skin_ratio: 0.81, boundary_flow_ratio: 0.56 }
+},
 ];
 
 // ── Constants (same as main page) ────────────────────────────────
@@ -195,7 +195,7 @@ export default function DemoRealPage() {
           </div>
           <div className="flex flex-col">
             <span className="font-black text-base tracking-[0.15em] text-white">NEUROBLINK</span>
-            <span className="text-[9px] tracking-widest" style={{ color: '#333' }}>
+            <span className="text-[9px] tracking-widest" style={{ color: '#919191ff' }}>
               DEEPFAKE DETECTION SYSTEM
             </span>
           </div>
